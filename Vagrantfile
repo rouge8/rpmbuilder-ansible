@@ -4,6 +4,9 @@
 $setup = <<SCRIPT
 sudo rpm -Uvh http://ftp.osuosl.org/pub/fedora-epel/6/i386/epel-release-6-8.noarch.rpm
 sudo yum install -y postgresql-devel python-virtualenv
+sudo yum install -y rubygems ruby-devel
+echo "Installing 'fpm'... (this might take a while)"
+sudo gem install fpm
 SCRIPT
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
