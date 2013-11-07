@@ -6,6 +6,8 @@ SCRIPT_DIR=`dirname "$SCRIPT"`
 
 VENV_DIR="$PWD"
 
+trap "rm -rf $VENV_DIR" EXIT SIGINT SIGTERM
+
 # Create a relocatable virtualenv for ansible
 virtualenv ansible
 . ansible/bin/activate
@@ -39,6 +41,3 @@ fpm -s dir -t rpm -n ansible -v 1.3.4-`date +%s` -C "$TMPDIR" \
     -d "postgresql-devel" \
     -d "python-devel" \
     usr/local/bin opt
-
-# Cleanup
-rm -rf "$TMPDIR"
