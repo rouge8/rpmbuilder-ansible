@@ -1,6 +1,8 @@
 Packaging Ansible as a single RPM for RHEL 6.4
 ==============================================
 
+This is probably repeatable on other versions of RHEL/Fedora as well, but the important part is that the version you build the RPM on is the same as the version you deploy to.
+
 ## Usage
 
 ```sh
