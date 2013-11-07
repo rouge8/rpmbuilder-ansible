@@ -1,9 +1,15 @@
 Packaging Ansible as a single RPM for RHEL 6.4
 ==============================================
 
-This is probably repeatable on other versions of RHEL/Fedora as well, but the important part is that the version you build the RPM on is the same as the version you deploy to.
+## Why?
 
-## Usage
+[Ansible](https://github.com/ansible/ansible) is awesome. It'll make our deployments easier and consistent with each other. Unfortunately, the official Ansible RPM is in EPEL and depends on a bunch of other packages in EPEL and some features depend on other packages, etc. This is not ideal for environments where you want to minimize dependencies.
+
+## Installing
+
+Pre-built RPMs for RHEL 6.4 x86_64 can be found on the [releases page](https://github.com/rouge8/rpmbuilder-ansible/releases). Their only dependencies are `python-devel` and `postgresql-devel`, which should both be available in your local RHN mirror.
+
+## Building
 
 ```sh
 vagrant up --provision --provider=virtualbox
@@ -29,9 +35,7 @@ localhost | success >> {
 }
 ```
 
-## Why?
-
-[Ansible](https://github.com/ansible/ansible) is awesome. It'll make our deployments easier and consistent with each other. Unfortunately, the Ansible RPM is in EPEL and depends on a bunch of other packages in EPEL and some features depend on other packages, etc. This is not ideal for environments where you want to minimize dependencies.
+This is probably repeatable on other versions of RHEL/Fedora as well, but the important part is that the version you build the RPM on is the same as the version you deploy to.
 
 ## How?
 
