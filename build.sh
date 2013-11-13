@@ -3,6 +3,7 @@ set -e
 
 SCRIPT=$(python -c "import os; print(os.path.realpath('$0'))")
 SCRIPT_DIR=`dirname "$SCRIPT"`
+RPM_RELEASE=1
 
 VENV_DIR="$PWD"
 
@@ -36,8 +37,8 @@ done
 
 # Use FPM to build an RPM
 cd /vagrant
-fpm -s dir -t rpm -n ansible -v 1.3.4-`date +%s` -C "$TMPDIR" \
-    -p ansible-VERSION_ARCH.rpm \
+fpm -s dir -t rpm -n ansible -v 1.3.4 --iteration $RPM_RELEASE -C "$TMPDIR" \
+    -p ansible-FULLVERSION.ARCH.rpm \
     -d "postgresql-devel" \
     -d "python-devel" \
     usr/local/bin opt
