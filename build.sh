@@ -5,7 +5,7 @@ SCRIPT=$(python -c "import os; print(os.path.realpath('$0'))")
 SCRIPT_DIR=`dirname "$SCRIPT"`
 RPM_RELEASE=1
 
-VENV_DIR="$PWD"
+VENV_DIR=`mktmp -d`
 
 trap "rm -rf $VENV_DIR" EXIT SIGINT SIGTERM
 
