@@ -5,11 +5,12 @@ SCRIPT=$(python -c "import os; print(os.path.realpath('$0'))")
 SCRIPT_DIR=`dirname "$SCRIPT"`
 RPM_RELEASE=1
 
-VENV_DIR=`mktmp -d`
+VENV_DIR=$(mktemp -d)
 
 trap "rm -rf $VENV_DIR" EXIT SIGINT SIGTERM
 
 # Create a relocatable virtualenv for ansible
+cd "$VENV_DIR"
 virtualenv ansible
 . ansible/bin/activate
 pip install -r "$SCRIPT_DIR"/requirements.txt
@@ -20,7 +21,7 @@ cd ansible/lib/python2.6/site-packages/ansible
 patch -p0 < "$SCRIPT_DIR"/ansible-site-packages.patch
 
 # Setup the directory structure for the RPM
-TMPDIR=`mktemp -d`
+TMPDIR=$(mktemp -d)
 mkdir -p "$TMPDIR"/opt
 
 cp -ap "$VENV_DIR"/ansible "$TMPDIR"/opt/
@@ -37,7 +38,7 @@ done
 
 # Use FPM to build an RPM
 cd /vagrant
-fpm -s dir -t rpm -n ansible -v 1.3.4 --iteration $RPM_RELEASE -C "$TMPDIR" \
+fpm -s dir -t rpm -n ansible -v 1.4.0 --iteration $RPM_RELEASE -C "$TMPDIR" \
     -p ansible-FULLVERSION.ARCH.rpm \
     -d "postgresql-devel" \
     -d "python-devel" \
