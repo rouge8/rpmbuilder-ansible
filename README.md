@@ -17,6 +17,12 @@ vagrant ssh
 /vagrant/build.sh  # creates ansible-1.3.4_<date>_x86_64.rpm in the repo directory
 ```
 
+**NOTE**: by default, uses Virtualbox to build. If you want to use VMware, add the equivalent vagrant box:
+
+```sh
+vagrant box add centos-6.4-x86_64 https://s3.amazonaws.com/rj-public/centos-6.4-x86_64-vmware.box
+```
+
 Copy that RPM to your target machine, install it with `sudo yum install <file>` (depends on `python-devel`, `postgresql-devel`, and their dependencies) and you're good to go!
 
 Verify that it worked by having ansible ping your machine:
